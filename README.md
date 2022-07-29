@@ -1,2 +1,3 @@
 # AlphaThal_DeepLearning
-Code associated with the poster "Using Deep Learning to Predict Large Deletions in the Alpha Thalassemia Region from Short Sequence Reads" 
+This is the code for "Thalia," (Thalassemia Intelligent Analysis) associated with the poster "Using Deep Learning to Predict Large Deletions in the Alpha Thalassemia Region from Short Sequence Reads." 
+This work was conducted during my time at NHGRI with the help of Nancy F. Hansen and James C. Mullikin. The code contained in this repository can search for best models to fit to a set of Alpha-Thalassemia short read data features, as well as run those models and create visualizations. Thalia_search_loop and Thalia_search_lossloop are the hyperparameter search functions, and Thalia.ipynb shows how to run and visualize the best models.
