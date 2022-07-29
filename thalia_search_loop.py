@@ -2,18 +2,17 @@
 import tensorflow as tf
 import pandas as pd
 import numpy as np
-df = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg10.insert440.stdev100.chm13.txt')
-df2 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg20.insert440.stdev100.chm13.txt')
-df3 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg30.insert440.stdev100.chm13.txt')
-df4 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg40.insert440.stdev100.chm13.txt')
-df5 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg10.insert440.stdev100.hg19.txt')
-df6 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg20.insert440.stdev100.hg19.txt')
-df7 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg30.insert440.stdev100.hg19.txt')
-df8 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.5880samples.cvg40.insert440.stdev100.hg19.txt')
+#Usage: copy the df line to read as many of the feature files as you would like to test
+#Then add the dataframes to the dfs list, and their names to the dfnames list.
+#Make sure to change the shapes list to fit the number of features in each set.
 
-dfs = [df, df2, df3, df4, df5, df6, df7, df8]
-dfnames = ["T2T 10x", "T2T 20x", "hg19 11760 10x", "hg19 11760 20x", 
-           "hg19 11760 30x", "hg19 11760 40x", "hg19 10x", "hg19 20x"]
+#This program will automatically search for hyperparameters that will fit these sets best.
+#This is meant to be used on a computer cluster, since each search takes around 2 hours to run.
+df = pd.read_table('')
+dfs = []
+dfnames = []
+shapes =[1306, 1306, 1306, 1306, 1290, 1290, 1290, 1290]
+
 #seperating targets from training data
 def shuffle_sep(df):
   df = df.sample(frac=1)
@@ -70,7 +69,7 @@ tf.keras.regularizers.l2(0.001), activation='relu'))
             val_loss, val_mae = model.evaluate(val_data, val_targy, verbose = 0)
             all_scores.append(val_mae)
     return history, model                                     
-                                                              
+#search function, change weights or add more loops as needed!                                                              
 def thalia_search(shape, trainset, targyset):
     weightvals = [32, 64, 128, 256, 512, 1024]                
     torf = [True, False]                                      
@@ -93,7 +92,6 @@ def thalia_search(shape, trainset, targyset):
     print(max(accuracies))                                    
     return best_hparams  
 counter = 0
-shapes =[1306, 1306, 1306, 1306, 1290, 1290, 1290, 1290]
 for df in dfs:
     df, df_targy = shuffle_sep(df)
     train, targy = sets_numpy(df, df_targy)
