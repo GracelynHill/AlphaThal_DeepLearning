@@ -2,17 +2,18 @@
 import tensorflow as tf
 import pandas as pd
 import numpy as np
-df = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet1/DataSet1.cvg10.insert400.stdev20.chm13.txt')
-df2 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet1/DataSet1.cvg20.insert400.stdev20.chm13.txt')
-df3 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.11760samples.cvg10.insert440.stdev100.hg19.txt')
-df4 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.11760samples.cvg20.insert440.stdev100.hg19.txt')
-df5 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.11760samples.cvg30.insert440.stdev100.hg19.txt')
-df6 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.11760samples.cvg40.insert440.stdev100.hg19.txt')
-df7 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.cvg10.insert440.stdev100.hg19.txt')
-df8 = pd.read_table('/cluster/ifs/projects/AlphaThal/MachineLearning/Features/DataSet2/DataSet2.cvg20.insert440.stdev100.hg19.txt')
-dfs = [df, df2, df3, df4, df5, df6, df7, df8]
-dfnames = ["T2T 10x", "T2T 20x", "hg19 11760 10x", "hg19 11760 20x", 
-           "hg19 11760 30x", "hg19 11760 40x", "hg19 10x", "hg19 20x"]
+#Usage: copy the df line to read as many of the feature files as you would like to test
+#Then add the dataframes to the dfs list, and their names to the dfnames list.
+#Make sure to change the shapes list to fit the number of features in each set.
+
+#This program will automatically search for hyperparameters that will fit these sets best.
+#It is essentially the same as Thalia_search_loop.py, but optimizing for lowest loss,
+#rather than highest validation accuracy. I would recommend running both at once :)
+#This is meant to be used on a computer cluster, since each search takes around 2 hours to run.
+df = pd.read_table('')
+dfs = []
+dfnames = []
+shapes =[1306, 1306, 1306, 1306, 1290, 1290, 1290, 1290]
 #seperating targets from training data
 def shuffle_sep(df):
   df = df.sample(frac=1)
